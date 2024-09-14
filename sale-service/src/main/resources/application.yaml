@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: sale-service
+  datasource:
+    url: jdbc:mysql://localhost:3308/sale_db
+    username: root
+    password: example
+  jpa:
+    hibernate:
+      ddl-auto: update

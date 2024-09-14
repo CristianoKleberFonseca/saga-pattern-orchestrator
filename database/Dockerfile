@@ -1,0 +1,17 @@
+FROM mysql/mysql-server
+
+ARG DB_NAME
+ARG ROOT_PWD
+ARG APP_USERNAME
+ARG APP_USER_PWD
+
+ENV MYSQL_ROOT_PASSWORD=${ROOT_PWD}
+ENV MYSQL_DATABASE=${DB_NAME}
+
+RUN echo "CREATE USER '${APP_USERNAME}'@'%' IDENTIFIED BY '${APP_USER_PWD}';"\
+         "GRANT ALL PRIVILEGES ON *.* TO '${APP_USERNAME}'@'%' WITH GRANT OPTION;"\
+         > /docker-entrypoint-initdb.d/_grant_remote.sql
+
+EXPOSE 3306
+
+CMD ["mysqld"]
